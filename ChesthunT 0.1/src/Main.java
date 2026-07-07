@@ -6,11 +6,6 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 
-
-
-
-
-
 public class Main {
     public static void play(int num) {
         Scanner sc=new Scanner(System.in);
@@ -23,12 +18,11 @@ public class Main {
             chests[i]= new chest();
         }
 
-
         JFrame alan=new JFrame("");
         alan.setSize(434,458);
         alan.setLayout(null);
         alan.getContentPane().setBackground(new Color(100,200,100));
-
+        
         JFrame keyboard=new JFrame("kb");
         keyboard.setSize(220,130);
         keyboard.setLayout(null);
@@ -55,6 +49,48 @@ public class Main {
         moveRight.setBackground(Color.WHITE);
         moveRight.setOpaque(true);
 
+        alan.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                boolean hareketEtti = false;
+
+                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+                    cr.setLocation(cr.getX(), cr.getY() - 60);
+                    if (cr.getY() < 0) cr.setLocation(cr.getX(), 360);
+                    hareketEtti = true;
+                } else if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+                    cr.setLocation(cr.getX() - 60, cr.getY());
+                    if (cr.getX() < 0) cr.setLocation(360, cr.getY());
+                    hareketEtti = true;
+                } else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+                    cr.setLocation(cr.getX(), cr.getY() + 60);
+                    if (cr.getY() >= 420) cr.setLocation(cr.getX(), 0);
+                    hareketEtti = true;
+                } else if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+                    cr.setLocation(cr.getX() + 60, cr.getY());
+                    if (cr.getX() >= 420) cr.setLocation(0, cr.getY());
+                    hareketEtti = true;
+                }
+
+                if (hareketEtti == true) {
+                    mv.moving(poi);
+                    moveRight.setText("" + mv.getMr());
+
+                    for (int i = 0; i < chests.length; i++) {
+                        if (cr.getX() == chestButtons[i].getX() && cr.getY() == chestButtons[i].getY()) {
+                            chests[i].setter();
+                            chestButtons[i].setLocation(chests[i].getXc(), chests[i].getYc());
+                            poi.gettingPoint();
+                            Gamescore.setText("Puan: " + poi.getPoint());
+                        }
+                    }
+                }
+            }
+        });
+
+
+
         for(int i=0;i<chests.length;i++) {
             if (cr.getX() == chestButtons[i].getX() && cr.getY() == chestButtons[i].getY()) {
                 chests[i].setter();
@@ -63,110 +99,19 @@ public class Main {
                 Gamescore.setText("Puan: " + poi.getPoint());
             }
         }
-        JButton w=new JButton("w");
-        w.setBounds(45,0,45,45);
-        w.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cr.setLocation(cr.getX(),cr.getY()-60);
-                mv.moving(poi);
-                moveRight.setText(""+mv.getMr());
-                for(int i=0;i<chests.length;i++){
-                    if(cr.getX()==chestButtons[i].getX() && cr.getY()==chestButtons[i].getY()){
-                        chests[i].setter();
-                        chestButtons[i].setLocation(chests[i].getXc(),chests[i].getYc());
-                        poi.gettingPoint();
-                        Gamescore.setText("Puan: "+poi.getPoint());
-                    }
-                    if(cr.getY()<0){
-                        cr.setLocation(cr.getX(),360);
-                    }
-                }
-            }
-        });
-
-        JButton d=new JButton("d");
-        d.setBounds(90,45,45,45);
-        d.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cr.setLocation(cr.getX()+60,cr.getY());
-                mv.moving(poi);
-                moveRight.setText(""+mv.getMr());
-                for(int i=0;i<chests.length;i++){
-                    if(cr.getX()==chestButtons[i].getX() && cr.getY()==chestButtons[i].getY()){
-                        chests[i].setter();
-                        chestButtons[i].setLocation(chests[i].getXc(),chests[i].getYc());
-                        poi.gettingPoint();
-                        Gamescore.setText("Puan: "+poi.getPoint());
-                    }
-                    if(cr.getX()>=420){
-                        cr.setLocation(0,cr.getY());
-                    }
-                }
-            }
-        });
-
-        JButton s=new JButton("s");
-        s.setBounds(45,45,45,45);
-        s.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cr.setLocation(cr.getX(),cr.getY()+60);
-                mv.moving(poi);
-                moveRight.setText(""+mv.getMr());
-                for(int i=0;i<chests.length;i++){
-                    if(cr.getX()==chestButtons[i].getX() && cr.getY()==chestButtons[i].getY()){
-                        chests[i].setter();
-                        chestButtons[i].setLocation(chests[i].getXc(),chests[i].getYc());
-                        poi.gettingPoint();
-                        Gamescore.setText("Puan: "+poi.getPoint());
-                    }
-                    if(cr.getY()>=420){
-                        cr.setLocation(cr.getX(),0);
-                    }
-                }
-            }
-        });
-
-        JButton a=new JButton("a");
-        a.setBounds(0,45,45,45);
-        a.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cr.setLocation(cr.getX()-60,cr.getY());
-                mv.moving(poi);
-                moveRight.setText(""+mv.getMr());
-                for(int i=0;i<chests.length;i++){
-                    if(cr.getX()==chestButtons[i].getX() && cr.getY()==chestButtons[i].getY()){
-                        chests[i].setter();
-                        chestButtons[i].setLocation(chests[i].getXc(),chests[i].getYc());
-                        poi.gettingPoint();
-                        Gamescore.setText("Puan: "+poi.getPoint());
-                    }
-                    if(cr.getX()<0){
-                        cr.setLocation(360,cr.getY());
-                    }
-                }
-            }
-        });
-
 
         keyboard.add(moveRight);
         keyboard.add(Gamescore);
-        keyboard.add(a);
-        keyboard.add(s);
-        keyboard.add(d);
-        keyboard.add(w);
+
 
         alan.add(cr);
         for (int i=0;i<chestButtons.length;i++){
             alan.add(chestButtons[i]);
         }
-
-
         alan. setVisible(true);
         keyboard.setVisible(true);
+        alan.setFocusable(true);
+        alan.requestFocusInWindow();
 
 
     }
