@@ -21,14 +21,9 @@ public class Main {
         }
 
         JFrame alan=new JFrame("");
-        alan.setSize(434,458);
+        alan.setSize(434,500);
         alan.setLayout(null);
         alan.getContentPane().setBackground(new Color(100,200,100));
-
-        JFrame keyboard=new JFrame("kb");
-        keyboard.setSize(220,130);
-        keyboard.setLayout(null);
-        keyboard.getContentPane().setBackground(new Color(30,30,30));
 
         JButton cr=new JButton("Cr");
         cr.setBounds(0,0,60,60);
@@ -40,15 +35,15 @@ public class Main {
         }
 
         JLabel Gamescore=new JLabel("Puaniniz: 0");
-        Gamescore.setBounds(135,0,70,45);
-        Gamescore.setForeground(Color.BLACK);
-        Gamescore.setBackground(Color.WHITE);
+        Gamescore.setBounds(200,420,230,45);
+        Gamescore.setForeground(Color.WHITE);
+        Gamescore.setBackground(Color.BLACK);
         Gamescore.setOpaque(true);
 
         JLabel moveRight=new JLabel("30",SwingConstants.CENTER);
-        moveRight.setBounds(135,45,70,45);
-        moveRight.setForeground(Color.BLACK);
-        moveRight.setBackground(Color.WHITE);
+        moveRight.setBounds(0,420,230,45);
+        moveRight.setForeground(Color.WHITE);
+        moveRight.setBackground(Color.BLACK);
         moveRight.setOpaque(true);
 
         alan.addKeyListener(new KeyAdapter() {
@@ -76,7 +71,7 @@ public class Main {
                 }
 
                 if (hareketEtti == true) {
-                    mv.moving(poi,alan,keyboard);
+                    mv.moving(poi,alan);
                     moveRight.setText("" + mv.getMr());
 
                     for (int i = 0; i < chests.length; i++) {
@@ -102,8 +97,7 @@ public class Main {
             }
         }
 
-        keyboard.add(moveRight);
-        keyboard.add(Gamescore);
+
 
 
         alan.add(cr);
@@ -111,9 +105,19 @@ public class Main {
             alan.add(chestButtons[i]);
         }
         alan. setVisible(true);
-        keyboard.setVisible(true);
+        alan.add(Gamescore);
+        alan.add(moveRight);
         alan.setFocusable(true);
         alan.requestFocusInWindow();
+        alan.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        alan.addWindowListener(new java.awt.event.WindowAdapter(){
+
+            public void windowClosing(java.awt.event.WindowAdapter e){
+                alan.dispose();
+                Main.lobby();
+            }
+        });
 
 
     }
