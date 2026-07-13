@@ -9,10 +9,13 @@ public class move{
     public void setMr(int a){mr=a;}
     public int getMr(){return mr;}
 
-    public void moving(Gamepoint p){
+    public void moving(Gamepoint p, JFrame alan,JFrame keyboard ){
         if (mr<=0){
             JOptionPane.showMessageDialog(null,"Oyun Bitti! Puanınız: " + p.getPoint());
-            System.exit(0);
+            alan.dispose();
+            keyboard.dispose();
+
+            Main.lobby();
         }
         mr--;
     }

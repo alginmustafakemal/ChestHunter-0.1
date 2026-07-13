@@ -7,11 +7,13 @@ import javax.swing.JOptionPane;
 
 
 public class Main {
-    public static void play(int num) {
+    public static void play(int num, JFrame lobby) {
         Scanner sc=new Scanner(System.in);
         Random r=new Random();
         Gamepoint poi=new Gamepoint();
         move mv=new move();
+
+        lobby.dispose();
 
         chest[] chests=new chest[num];
         for (int i=0;i<chests.length;i++){
@@ -22,7 +24,7 @@ public class Main {
         alan.setSize(434,458);
         alan.setLayout(null);
         alan.getContentPane().setBackground(new Color(100,200,100));
-        
+
         JFrame keyboard=new JFrame("kb");
         keyboard.setSize(220,130);
         keyboard.setLayout(null);
@@ -74,7 +76,7 @@ public class Main {
                 }
 
                 if (hareketEtti == true) {
-                    mv.moving(poi);
+                    mv.moving(poi,alan,keyboard);
                     moveRight.setText("" + mv.getMr());
 
                     for (int i = 0; i < chests.length; i++) {
@@ -135,7 +137,7 @@ public class Main {
         initiator.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                play(10);
+                play(10,lobby);
             }
         });
 
@@ -144,7 +146,7 @@ public class Main {
         strategic.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                play(6);
+                play(6,lobby);
             }
         });
 
@@ -153,7 +155,7 @@ public class Main {
         chaos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                play(20);
+                play(20,lobby);
             }
         });
 
