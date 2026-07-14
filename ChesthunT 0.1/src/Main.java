@@ -112,8 +112,8 @@ public class Main {
         alan.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         alan.addWindowListener(new java.awt.event.WindowAdapter(){
-
-            public void windowClosing(java.awt.event.WindowAdapter e){
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e){
                 alan.dispose();
                 Main.lobby();
             }
@@ -128,6 +128,14 @@ public class Main {
         ls.setLayout(null);
 
         ls.setVisible(true);
+
+        ls.addWindowListener(new java.awt.event.WindowAdapter(){
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e){
+                ls.dispose();
+                Main.lobby();
+            }
+        });
     }
 
     public static void lobby(){
@@ -169,7 +177,9 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sett();
+                lobby.dispose();
             }
+
         });
 
         lobby.add(chaos);
